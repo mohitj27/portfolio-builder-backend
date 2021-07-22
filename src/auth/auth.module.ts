@@ -1,5 +1,6 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
+import { GoogleStrategy } from 'src/google.strategy';
 import { MailModule } from 'src/mail/mail.module';
 import { UserSchema } from 'src/schemas/user.schema';
 import { AuthRepository } from './auth-repository';
@@ -17,6 +18,6 @@ import { AuthService } from './auth.service';
     MailModule,
   ],
   controllers: [AuthController],
-  providers: [AuthRepository, AuthService],
+  providers: [AuthRepository, AuthService, GoogleStrategy],
 })
 export class AuthModule {}

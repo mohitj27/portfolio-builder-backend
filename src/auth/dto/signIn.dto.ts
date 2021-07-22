@@ -1,6 +1,8 @@
-import { IsString } from 'class-validator';
+import { IsNumber, IsString } from 'class-validator';
 
 export class SiginInDto {
   @IsString()
-  email: string;
+  message: string;
+  @IsNumber()
+  id: number;
 }
