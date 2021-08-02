@@ -5,6 +5,7 @@ import {
   HttpStatus,
   Post,
   Req,
+  Res,
   UseGuards,
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
@@ -28,9 +29,18 @@ export class AuthController {
 
   @Get('/google/redirect')
   @UseGuards(AuthGuard('google'))
-  googleAuthRedirect(@Req() req) {
-    return this.authService.googleLogin(req);
-  }
+  async googleAuthRedirect(@Req() req,@Res() res) {
+  
+  const result=await this.authService.googleLogin(req);
+  res.cookie('accessToken', 'accessToken', {
+    domain: 'portfolio-builder-rho.vercel.app',
+    path: '/',
+    secure: true,
+    // expires: new Date(new Date().getTime() + 30 * 1000),
+  });
+  // res.set('Authorization', 'Bearer ' + "ufuysegryuewrguyew765");
+  res.redirect(302,'https://portfolio-builder-rho.vercel.app')  
+}
   @Get('/facebook')
   @UseGuards(AuthGuard('facebook'))
   async facebookLogin(): Promise<any> {
